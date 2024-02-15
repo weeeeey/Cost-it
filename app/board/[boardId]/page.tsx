@@ -1,7 +1,13 @@
 import React from 'react';
 
-const BoardIdPage = () => {
-    return <div>BoardIdPage</div>;
+interface BoardIdProps {
+    params: {
+        boardId: string;
+    };
+}
+
+const BoardIdPage = ({ params }: BoardIdProps) => {
+    return <div>{params.boardId}</div>;
 };
 
 export default BoardIdPage;
