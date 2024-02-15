@@ -7,6 +7,7 @@ import { OrganizationSwitcher } from '@clerk/clerk-react';
 import { Button } from '@/components/ui/button';
 import { LayoutDashboard, Star } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 const font = Poppins({
     subsets: ['latin'],
@@ -28,7 +29,11 @@ export const OrgSidebar = () => {
                         src="/logo.png"
                         className="rounded-full"
                     />
-                    <span className="text-xl font-semibold">Board</span>
+                    <span
+                        className={cn('text-xl font-semibold', font.className)}
+                    >
+                        Board
+                    </span>
                 </div>
             </Link>
             <OrganizationSwitcher
