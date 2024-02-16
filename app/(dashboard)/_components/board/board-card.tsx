@@ -1,18 +1,25 @@
 'use client';
 
 import Link from 'next/link';
-import { BoardType } from './board-list';
 import Image from 'next/image';
 import { BoardOverlay } from './board-overlay';
 import { format, formatDistanceToNow } from 'date-fns';
-import { useAuth } from '@clerk/clerk-react';
+import { useAuth, useOrganization } from '@clerk/clerk-react';
 import { BoardFooter } from './board-footer';
 import { Actions } from '@/components/actions';
 import { MoreHorizontal } from 'lucide-react';
+import useApiMutation from '@/hooks/use-api-mutation';
+import { api } from '@/convex/_generated/api';
+import { toast } from 'sonner';
 
-interface BoardCardProps extends Omit<BoardType, '_creationTime' | '_id'> {
+interface BoardCardProps {
     createdAt: number;
     id: string;
+    authorId: string;
+    authorName: string;
+    imageUrl: string;
+    orgId: string;
+    title: string;
     isFavorite: boolean;
 }
 
@@ -27,6 +34,28 @@ const BoardCard = ({
     isFavorite,
 }: BoardCardProps) => {
     const { userId } = useAuth();
+    const { mutate: onFavorite, pending: favorPending } = useApiMutation(
+        api.board.favorite
+    );
+    const { mutate: unFavorite, pending: unFavorPending } = useApiMutation(
+        api.board.unFavorite
+    );
+    const { organization } = useOrganization();
+    if (!organization) {
+        return null;
+    }
+    const handleFavorite = () => {
+        if (isFavorite) {
+            unFavorite({
+                id,
+            }).catch(() => toast.error('Failed to unfavorite'));
+        } else {
+            onFavorite({
+                id,
+                orgId,
+            }).catch(() => toast.error('Failed to favorite'));
+        }
+    };
 
     const authorLabel = userId === authorId ? 'You' : authorName;
     const createAtLabel = formatDistanceToNow(createdAt, {
@@ -47,9 +76,9 @@ const BoardCard = ({
                 <BoardFooter
                     authorLabel={authorLabel}
                     createAtLabel={createAtLabel}
-                    disabled={false}
+                    disabled={favorPending || unFavorPending}
                     isFavorite={isFavorite}
-                    onClick={() => {}}
+                    onClick={handleFavorite}
                     title={title}
                 />
             </div>

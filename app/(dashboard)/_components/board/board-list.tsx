@@ -20,19 +20,8 @@ interface BoardListProps {
     };
 }
 
-export interface BoardType {
-    _id: Id<'boards'>;
-
-    _creationTime: number;
-    title: string;
-    orgId: string;
-    authorId: string;
-    authorName: string;
-    imageUrl: string;
-}
-
 export const BoardList = ({ orgId, query }: BoardListProps) => {
-    const data: BoardType[] | undefined = useQuery(api.boards.get, { orgId }); //Change to API call
+    const data = useQuery(api.boards.get, { orgId, ...query }); //Change to API call
     if (data === undefined) {
         return (
             <div>
@@ -76,7 +65,7 @@ export const BoardList = ({ orgId, query }: BoardListProps) => {
                         title={board.title}
                         id={board._id}
                         createdAt={board._creationTime}
-                        isFavorite={false}
+                        isFavorite={board.isFavorite}
                     />
                 ))}
             </div>
