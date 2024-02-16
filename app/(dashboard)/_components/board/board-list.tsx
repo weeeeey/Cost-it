@@ -68,7 +68,7 @@ export const BoardList = ({ orgId, query }: BoardListProps) => {
                 <BoardNewButton orgId={orgId} />
                 {data.map((board) => (
                     <BoardCard
-                        key={board.orgId}
+                        key={board._id}
                         authorId={board.authorId}
                         orgId={board.orgId}
                         authorName={board.authorName}
