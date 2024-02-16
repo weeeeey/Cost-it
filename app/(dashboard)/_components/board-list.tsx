@@ -1,8 +1,7 @@
-import Image from 'next/image';
 import React from 'react';
-import { EmptySearch } from './empty-search';
-import { EmptyFavorites } from './empty-favorites';
-import { EmptyBoard } from './empty-board';
+import { EmptySearch } from './empty/empty-search';
+import { EmptyFavorites } from './empty/empty-favorites';
+import { EmptyBoard } from './empty/empty-board';
 
 interface BoardListProps {
     orgId: string;
@@ -14,6 +13,7 @@ interface BoardListProps {
 
 export const BoardList = ({ orgId, query }: BoardListProps) => {
     const data = []; //Change to API call
+
     if (!data?.length && query.search) {
         return <EmptySearch />;
     }

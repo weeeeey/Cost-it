@@ -1,6 +1,6 @@
 'use client';
 import { useOrganization } from '@clerk/clerk-react';
-import { EmptyOrg } from './_components/empty-org';
+import { EmptyOrg } from './_components/empty/empty-org';
 import { BoardList } from './_components/board-list';
 
 interface DashboardProps {
