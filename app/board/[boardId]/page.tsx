@@ -1,4 +1,5 @@
 import React from 'react';
+import { Canvas } from './_components/canvas';
 
 interface BoardIdProps {
     params: {
@@ -7,7 +8,11 @@ interface BoardIdProps {
 }
 
 const BoardIdPage = ({ params }: BoardIdProps) => {
-    return <div>{params.boardId}</div>;
+    return (
+        <div>
+            <Canvas boardId={params.boardId} />
+        </div>
+    );
 };
 
 export default BoardIdPage;

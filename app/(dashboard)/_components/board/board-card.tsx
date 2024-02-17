@@ -44,7 +44,7 @@ const BoardCard = ({
     if (!organization) {
         return null;
     }
-    const handleFavorite = () => {
+    const toggleFavorite = () => {
         if (isFavorite) {
             unFavorite({
                 id,
@@ -73,12 +73,13 @@ const BoardCard = ({
                         </button>
                     </Actions>
                 </div>
+
                 <BoardFooter
                     authorLabel={authorLabel}
                     createAtLabel={createAtLabel}
                     disabled={favorPending || unFavorPending}
                     isFavorite={isFavorite}
-                    onClick={handleFavorite}
+                    onClick={toggleFavorite}
                     title={title}
                 />
             </div>

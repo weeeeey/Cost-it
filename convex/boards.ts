@@ -14,6 +14,9 @@ export const get = query({
         if (!identity) {
             throw new Error('Unauthorized');
         }
+        /**
+         * @findFavoriteBoards
+         */
         if (args.favorites) {
             const favoriteBoards = await ctx.db
                 .query('userFavorites')
@@ -31,11 +34,24 @@ export const get = query({
             }));
         }
 
-        const boards = await ctx.db
-            .query('boards')
-            .withIndex('by_org', (q) => q.eq('orgId', args.orgId))
-            .order('desc')
-            .collect();
+        let boards = [];
+        const title = args.search as string;
+
+        if (title) {
+            /**@searchInput */
+            boards = await ctx.db
+                .query('boards')
+                .withSearchIndex('search_title', (q) =>
+                    q.search('title', title).eq('orgId', args.orgId)
+                )
+                .collect();
+        } else {
+            boards = await ctx.db
+                .query('boards')
+                .withIndex('by_org', (q) => q.eq('orgId', args.orgId))
+                .order('desc')
+                .collect();
+        }
 
         const boardsWithFavoriteRelation = boards.map((bo) => {
             return ctx.db

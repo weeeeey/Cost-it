@@ -19,6 +19,13 @@ export const BoardFooter = ({
     onClick,
     title,
 }: BoardFooterProps) => {
+    const handleClick = (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => {
+        e.stopPropagation();
+        e.preventDefault();
+        onClick();
+    };
     return (
         <div className="relative bg-white p-3">
             <p className="text-[13px] truncate max-w-[calc(100%-20px)]">
@@ -33,7 +40,7 @@ export const BoardFooter = ({
                     disabled && 'cursor-not-allowed opacity-75'
                 )}
                 disabled={disabled}
-                onClick={onClick}
+                onClick={handleClick}
             >
                 <Star
                     className={cn(
