@@ -18,10 +18,10 @@ export const Toolbar = () => {
     );
 };
 
-Toolbar.Skeleton = function InfoSkeleton() {
+export function ToolbarSkeleton() {
     return (
         <div className="absolute top-72 left-2 flex flex-col shadow-md rounded-md gap-y-4 bg-white h-[360px] w-[52px]">
             <Skeleton className="h-full w-full bg-muted-400" />
         </div>
     );
-};
+}

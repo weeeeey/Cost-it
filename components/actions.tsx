@@ -14,6 +14,7 @@ import { api } from '@/convex/_generated/api';
 import { ConfirmModal } from './confirm-modal';
 import { Button } from './ui/button';
 import { useRenameModal } from '@/store/use-rename-modal';
+import { useRouter } from 'next/navigation';
 
 interface ActionsProps {
     children: ReactNode;
@@ -32,6 +33,7 @@ export const Actions = ({
 }: ActionsProps) => {
     const { onOpen } = useRenameModal();
     const { mutate, pending } = useApiMutation(api.board.remove);
+    const router = useRouter();
 
     const onCopyLink = () => {
         navigator.clipboard
@@ -41,7 +43,10 @@ export const Actions = ({
     };
     const onDelete = () => {
         mutate({ id })
-            .then(() => toast.success('Board deleted'))
+            .then(() => {
+                toast.success('Board deleted');
+                router.push('/');
+            })
             .catch(() => toast.error('failed to delete board'));
     };
 
