@@ -16,7 +16,7 @@ import React from 'react';
 
 const font = Poppins({
     subsets: ['latin'],
-    weight: ['600'],
+    weight: ['500'],
 });
 
 interface InfoProps {
