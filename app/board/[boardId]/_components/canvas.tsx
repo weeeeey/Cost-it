@@ -4,6 +4,7 @@ import React from 'react';
 import { Info } from './info';
 import { Participants } from './participants';
 import { Toolbar } from './toolbar';
+import { useSelf } from '@/liveblocks.config';
 
 interface CanvasProps {
     boardId: string;
