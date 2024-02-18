@@ -1,3 +1,4 @@
+import { Camera } from '@/types/type-canvas';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -10,3 +11,16 @@ export function cn(...inputs: ClassValue[]) {
 export function connectionIdToColor(connectionId: number): string {
     return COLORS[connectionId % COLORS.length];
 }
+
+// const client = createClient({
+//     throttle: 16,
+// }); @liveblocks.config
+export const pointerEventToCanvasPoint = (
+    e: React.PointerEvent,
+    camera: Camera
+) => {
+    return {
+        x: Math.round(e.clientX - camera.x),
+        y: Math.round(e.clientY - camera.y),
+    };
+};
