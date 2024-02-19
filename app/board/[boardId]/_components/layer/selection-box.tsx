@@ -39,6 +39,7 @@ export const SelectionBox = memo(
                 />
                 {isShowingHandles && (
                     <>
+                        {/* 11시 */}
                         <rect
                             className="fill-white stroke-1 stroke-blue-500"
                             x={0}
@@ -53,9 +54,13 @@ export const SelectionBox = memo(
                             }}
                             onPointerDown={(e) => {
                                 e.stopPropagation();
-                                // ToDO: add resize
+                                onResizeHandlePointerDown(
+                                    Side.Top + Side.Left,
+                                    bounds
+                                );
                             }}
                         />
+                        {/* 7시 */}
                         <rect
                             className="fill-white stroke-1 stroke-blue-500"
                             x={0}
@@ -72,9 +77,13 @@ export const SelectionBox = memo(
                             }}
                             onPointerDown={(e) => {
                                 e.stopPropagation();
-                                // ToDO: add resize
+                                onResizeHandlePointerDown(
+                                    Side.Bottom + Side.Left,
+                                    bounds
+                                );
                             }}
                         />
+                        {/* 5시 */}
                         <rect
                             className="fill-white stroke-1 stroke-blue-500"
                             x={0}
@@ -91,9 +100,13 @@ export const SelectionBox = memo(
                             }}
                             onPointerDown={(e) => {
                                 e.stopPropagation();
-                                // ToDO: add resize
+                                onResizeHandlePointerDown(
+                                    Side.Bottom + Side.Right,
+                                    bounds
+                                );
                             }}
                         />
+                        {/* 1시 */}
                         <rect
                             className="fill-white stroke-1 stroke-blue-500"
                             x={0}
@@ -108,7 +121,10 @@ export const SelectionBox = memo(
                             }}
                             onPointerDown={(e) => {
                                 e.stopPropagation();
-                                // ToDO: add resize
+                                onResizeHandlePointerDown(
+                                    Side.Top + Side.Right,
+                                    bounds
+                                );
                             }}
                         />
                     </>
