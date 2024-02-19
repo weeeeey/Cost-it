@@ -478,6 +478,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
                     <SelectionBox
                         onResizeHandlePointerDown={onResizeHandlePointerDown}
                     />
+                    {/* selected multi layer area */}
                     {canvasState.mode === CanvasMode.SelectionNet &&
                         canvasState.current != null && (
                             <rect
