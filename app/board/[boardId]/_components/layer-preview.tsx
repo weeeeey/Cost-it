@@ -33,16 +33,6 @@ export const LayerPreview = memo(
                     />
                 );
 
-            case LayerType.Path:
-                return (
-                    <Path
-                        id={id}
-                        layer={layer}
-                        onPointerDown={onLayerPointerDown}
-                        selectionColor={selectionColor}
-                    />
-                );
-
             case LayerType.Rectangle:
                 return (
                     <Rectangle
