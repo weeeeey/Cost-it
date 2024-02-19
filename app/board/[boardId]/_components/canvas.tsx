@@ -14,6 +14,7 @@ import {
     useSelf,
 } from '@/liveblocks.config';
 import {
+    colorToCss,
     connectionIdToColor,
     findIntersectingLayersWithRectangle,
     penPointsToPathLayer,
@@ -30,8 +31,8 @@ import {
     Side,
     XYWH,
 } from '@/types/type-canvas';
-// import { useDisableScrollBounce } from "@/hooks/use-disable-scroll-bounce";
-// import { useDeleteLayers } from "@/hooks/use-delete-layers";
+import { useDisableScrollBounce } from '@/hooks/use-disable-scroll-bounce';
+import { useDeleteLayers } from '@/hooks/use-delete-layers';
 
 import { Info } from './info';
 import { Path } from './layer/path';
@@ -39,9 +40,9 @@ import { Path } from './layer/path';
 import { Toolbar } from './toolbar';
 import { Participants } from './participants';
 import { LayerPreview } from './layer-preview';
-// import { SelectionBox } from "./selection-box";
-// import { SelectionTools } from "./selection-tools";
 import { CursorPrensence } from './cursor-prensence';
+import { SelectionBox } from './layer/selection-box';
+import { SelectionTools } from './selection-tools';
 
 const MAX_LAYERS = 100;
 
@@ -444,10 +445,10 @@ export const Canvas = ({ boardId }: CanvasProps) => {
                 undo={history.undo}
                 redo={history.redo}
             />
-            {/* <SelectionTools
+            <SelectionTools
                 camera={camera}
                 setLastUsedColor={setLastUsedColor}
-            /> */}
+            />
             <svg
                 className="h-[100vh] w-[100vw]"
                 onWheel={onWheel}
@@ -469,9 +470,9 @@ export const Canvas = ({ boardId }: CanvasProps) => {
                             selectionColor={layerIdsToColorSelection[layerId]}
                         />
                     ))}
-                    {/* <SelectionBox
+                    <SelectionBox
                         onResizeHandlePointerDown={onResizeHandlePointerDown}
-                    /> */}
+                    />
                     {canvasState.mode === CanvasMode.SelectionNet &&
                         canvasState.current != null && (
                             <rect
@@ -493,14 +494,14 @@ export const Canvas = ({ boardId }: CanvasProps) => {
                             />
                         )}
                     <CursorPrensence />
-                    {/* {pencilDraft != null && pencilDraft.length > 0 && (
+                    {pencilDraft != null && pencilDraft.length > 0 && (
                         <Path
                             points={pencilDraft}
                             fill={colorToCss(lastUsedColor)}
                             x={0}
                             y={0}
                         />
-                    )} */}
+                    )}
                 </g>
             </svg>
         </main>
