@@ -259,6 +259,11 @@ export const Canvas = ({ boardId }: CanvasProps) => {
         [canvasState]
     );
 
+    /**
+     * @onPointMove
+     *  if (canvasState.mode === CanvasMode.Resizing) {
+                resizeSelectedLayer(current);
+     */
     const onResizeHandlePointerDown = useCallback(
         (corner: Side, initialBounds: XYWH) => {
             history.pause();
