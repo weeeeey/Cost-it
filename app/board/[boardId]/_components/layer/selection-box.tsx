@@ -39,7 +39,27 @@ export const SelectionBox = memo(
                 />
                 {isShowingHandles && (
                     <>
-                        {/* 11시 */}
+                        {/* 12시 */}
+                        <rect
+                            className="fill-white stroke-1 stroke-blue-500"
+                            x={0}
+                            y={0}
+                            style={{
+                                cursor: 'ns-resize',
+                                width: `${HANDLE_WIDTH}px`,
+                                height: `${HANDLE_WIDTH}px`,
+                                transform: `translate(${
+                                    bounds.x +
+                                    bounds.width / 2 -
+                                    HANDLE_WIDTH / 2
+                                }px, ${bounds.y - HANDLE_WIDTH / 2}px)`,
+                            }}
+                            onPointerDown={(e) => {
+                                e.stopPropagation();
+                                onResizeHandlePointerDown(Side.Top, bounds);
+                            }}
+                        />
+                        {/* 10시 */}
                         <rect
                             className="fill-white stroke-1 stroke-blue-500"
                             x={0}
@@ -58,6 +78,28 @@ export const SelectionBox = memo(
                                     Side.Top + Side.Left,
                                     bounds
                                 );
+                            }}
+                        />
+                        {/* 9시 */}
+                        <rect
+                            className="fill-white stroke-1 stroke-blue-500"
+                            x={0}
+                            y={0}
+                            style={{
+                                cursor: 'col-resize',
+                                width: `${HANDLE_WIDTH}px`,
+                                height: `${HANDLE_WIDTH}px`,
+                                transform: `translate(${
+                                    bounds.x - HANDLE_WIDTH / 2
+                                }px, ${
+                                    bounds.y +
+                                    bounds.height / 2 -
+                                    HANDLE_WIDTH / 2
+                                }px)`,
+                            }}
+                            onPointerDown={(e) => {
+                                e.stopPropagation();
+                                onResizeHandlePointerDown(Side.Left, bounds);
                             }}
                         />
                         {/* 7시 */}
@@ -83,7 +125,29 @@ export const SelectionBox = memo(
                                 );
                             }}
                         />
-                        {/* 5시 */}
+                        {/* 6시 */}
+                        <rect
+                            className="fill-white stroke-1 stroke-blue-500"
+                            x={0}
+                            y={0}
+                            style={{
+                                cursor: 'row-resize',
+                                width: `${HANDLE_WIDTH}px`,
+                                height: `${HANDLE_WIDTH}px`,
+                                transform: `translate(${
+                                    bounds.x +
+                                    bounds.width / 2 -
+                                    HANDLE_WIDTH / 2
+                                }px, ${
+                                    bounds.y + bounds.height - HANDLE_WIDTH / 2
+                                }px)`,
+                            }}
+                            onPointerDown={(e) => {
+                                e.stopPropagation();
+                                onResizeHandlePointerDown(Side.Bottom, bounds);
+                            }}
+                        />
+                        {/* 4시 */}
                         <rect
                             className="fill-white stroke-1 stroke-blue-500"
                             x={0}
@@ -104,6 +168,28 @@ export const SelectionBox = memo(
                                     Side.Bottom + Side.Right,
                                     bounds
                                 );
+                            }}
+                        />
+                        {/* 3시 */}
+                        <rect
+                            className="fill-white stroke-1 stroke-blue-500"
+                            x={0}
+                            y={0}
+                            style={{
+                                cursor: 'col-resize',
+                                width: `${HANDLE_WIDTH}px`,
+                                height: `${HANDLE_WIDTH}px`,
+                                transform: `translate(${
+                                    bounds.x + bounds.width - HANDLE_WIDTH / 2
+                                }px, ${
+                                    bounds.y +
+                                    bounds.height / 2 -
+                                    HANDLE_WIDTH / 2
+                                }px)`,
+                            }}
+                            onPointerDown={(e) => {
+                                e.stopPropagation();
+                                onResizeHandlePointerDown(Side.Right, bounds);
                             }}
                         />
                         {/* 1시 */}
