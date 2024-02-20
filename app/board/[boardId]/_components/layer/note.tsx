@@ -1,9 +1,9 @@
 'use client';
 import { cn, colorToCss, getContrastingTextColor } from '@/lib/utils';
 import { useHistory, useMutation } from '@/liveblocks.config';
-import { TextLayer } from '@/types/type-canvas';
+import { NoteLayer } from '@/types/type-canvas';
 import { Kalam } from 'next/font/google';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ContentEditable, { ContentEditableEvent } from 'react-contenteditable';
 
 const font = Kalam({
@@ -13,7 +13,7 @@ const font = Kalam({
 
 interface NoteProps {
     id: string;
-    layer: TextLayer;
+    layer: NoteLayer;
     onPointerDown: (e: React.PointerEvent, layerId: string) => void;
     selectionColor?: string;
 }
