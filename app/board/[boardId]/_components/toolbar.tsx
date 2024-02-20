@@ -33,7 +33,6 @@ export const Toolbar = ({
     return (
         <div className="absolute top-48 left-2 flex flex-col gap-y-4">
             <div className=" bg-white rounded-md p-1.5 gap-y-1 flex-col flex items-center shadow-md">
-                <div></div>
                 <ToolButton
                     label="Select"
                     icon={MousePointer2}
@@ -52,7 +51,7 @@ export const Toolbar = ({
                     }
                 />
                 <ToolButton
-                    label="Text"
+                    label="Text ( press a Enter key to Store )"
                     icon={Type}
                     isActive={
                         canvasState.mode === CanvasMode.Inserting &&
@@ -67,7 +66,7 @@ export const Toolbar = ({
                     }
                 />
                 <ToolButton
-                    label="Sticky note"
+                    label="Sticky note  ( press a Enter key to Store )"
                     icon={StickyNote}
                     isActive={
                         canvasState.mode === CanvasMode.Inserting &&

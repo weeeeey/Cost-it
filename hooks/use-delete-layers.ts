@@ -8,6 +8,8 @@ export const useDeleteLayers = () => {
             const liveLayers = storage.get('layers');
             const liveLayerIds = storage.get('layerIds');
 
+            console.log(liveLayers);
+            console.log(liveLayerIds);
             for (const id of selection) {
                 liveLayers.delete(id);
 

@@ -421,7 +421,6 @@ export const Canvas = ({ boardId }: CanvasProps) => {
                 /**@text.length===0 인 경우 제외 시키기
                  */
                 // case 'Backspace':
-                //     if(canvasState.mode!==CanvasMode.Inserting)
                 //     deleteLayers();
                 //     break;
                 case 'z': {
