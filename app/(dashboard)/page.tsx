@@ -4,13 +4,6 @@ import { EmptyOrg } from './_components/empty/empty-org';
 import { BoardList } from './_components/board/board-list';
 import { useSearchParams } from 'next/navigation';
 
-interface DashboardProps {
-    searchParams: {
-        search?: string;
-        favorites?: string;
-    };
-}
-
 const DashboardPage = () => {
     const { organization } = useOrganization();
 

@@ -40,6 +40,7 @@ export const Text = ({
 
     const handleContentChange = (e: ContentEditableEvent) => {
         setContentValue(e.target.value);
+        updateValue(e.target.value);
     };
 
     const onLayerBlur = useMutation(
