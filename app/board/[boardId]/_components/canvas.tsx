@@ -43,6 +43,7 @@ import { LayerPreview } from './layer-preview';
 import { CursorPrensence } from './cursor-prensence';
 import { SelectionBox } from './layer/selection-box';
 import { SelectionTools } from './selection-tools';
+import { useDisableSwiping } from '@/hooks/use-disable-swiping';
 
 const MAX_LAYERS = 100;
 
@@ -64,7 +65,9 @@ export const Canvas = ({ boardId }: CanvasProps) => {
         b: 0,
     });
 
-    // useDisableScrollBounce();
+    useDisableScrollBounce();
+    useDisableSwiping(); //뒤로 가기 막음
+
     const history = useHistory();
     const canUndo = useCanUndo();
     const canRedo = useCanRedo();
@@ -415,9 +418,12 @@ export const Canvas = ({ boardId }: CanvasProps) => {
     useEffect(() => {
         function onKeyDown(e: KeyboardEvent) {
             switch (e.key) {
-                case 'Backspace':
-                    deleteLayers();
-                    break;
+                /**@text.length===0 인 경우 제외 시키기
+                 */
+                // case 'Backspace':
+                //     if(canvasState.mode!==CanvasMode.Inserting)
+                //     deleteLayers();
+                //     break;
                 case 'z': {
                     if (e.ctrlKey || e.metaKey) {
                         if (e.shiftKey) {
@@ -437,24 +443,6 @@ export const Canvas = ({ boardId }: CanvasProps) => {
             document.removeEventListener('keydown', onKeyDown);
         };
     }, [deleteLayers, history]);
-
-    useEffect(() => {
-        const preventTouchPadSwipe = (e: WheelEvent) => {
-            // 터치패드에서의 스와이프 동작을 막음
-            if (e.deltaX < 0) {
-                e.preventDefault();
-            }
-        };
-        // 터치패드 스와이프 이벤트 핸들러 등록
-        document.addEventListener('wheel', preventTouchPadSwipe, {
-            passive: false,
-        });
-
-        // 컴포넌트가 언마운트될 때 이벤트 핸들러 제거
-        return () => {
-            document.removeEventListener('wheel', preventTouchPadSwipe);
-        };
-    }, []);
 
     return (
         <main className="h-full w-full relative bg-neutral-100 touch-none">
