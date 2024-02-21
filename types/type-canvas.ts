@@ -30,6 +30,9 @@ export type CanvasState =
           mode: CanvasMode.Resizing;
           initialBounds: XYWH;
           corner: Side;
+      }
+    | {
+          mode: CanvasMode.Delete;
       };
 
 export enum CanvasMode {
@@ -40,6 +43,7 @@ export enum CanvasMode {
     Inserting,
     Resizing,
     Pencil,
+    Delete,
 }
 
 export type Color = {

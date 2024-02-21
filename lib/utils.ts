@@ -22,6 +22,18 @@ export function connectionIdToColor(connectionId: number): string {
     return COLORS[connectionId % COLORS.length];
 }
 
+export function colorToCss(color: Color) {
+    return `#${color.r.toString(16).padStart(2, '0')}${color.g
+        .toString(16)
+        .padStart(2, '0')}${color.b.toString(16).padStart(2, '0')}`;
+}
+
+export function getContrastingTextColor(color: Color) {
+    const luminance = 0.299 * color.r + 0.587 * color.g + 0.114 * color.b;
+
+    return luminance > 182 ? 'black' : 'white';
+}
+
 export function pointerEventToCanvasPoint(
     e: React.PointerEvent,
     camera: Camera
@@ -30,12 +42,6 @@ export function pointerEventToCanvasPoint(
         x: Math.round(e.clientX) - camera.x,
         y: Math.round(e.clientY) - camera.y,
     };
-}
-
-export function colorToCss(color: Color) {
-    return `#${color.r.toString(16).padStart(2, '0')}${color.g
-        .toString(16)
-        .padStart(2, '0')}${color.b.toString(16).padStart(2, '0')}`;
 }
 
 export function resizeBounds(bounds: XYWH, corner: Side, point: Point): XYWH {
@@ -104,12 +110,6 @@ export function findIntersectingLayersWithRectangle(
     }
 
     return ids;
-}
-
-export function getContrastingTextColor(color: Color) {
-    const luminance = 0.299 * color.r + 0.587 * color.g + 0.114 * color.b;
-
-    return luminance > 182 ? 'black' : 'white';
 }
 
 export function penPointsToPathLayer(
