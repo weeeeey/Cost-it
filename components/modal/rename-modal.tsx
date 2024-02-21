@@ -17,7 +17,7 @@ import { Button } from '../ui/button';
 import { toast } from 'sonner';
 
 export const RenameModal = () => {
-    const { initialValues, isOpen, onClose, onOpen } = useRenameModal();
+    const { initialValues, isOpen, onClose } = useRenameModal();
     const [title, setTitle] = useState(initialValues.title);
     const { mutate, pending } = useApiMutation(api.board.update);
 
