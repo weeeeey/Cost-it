@@ -3,7 +3,7 @@ import { cn, colorToCss } from '@/lib/utils';
 import { useHistory, useMutation } from '@/liveblocks.config';
 import { TextLayer } from '@/types/type-canvas';
 import { Kalam } from 'next/font/google';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ContentEditable, { ContentEditableEvent } from 'react-contenteditable';
 
 const font = Kalam({
@@ -25,17 +25,16 @@ export const Text = ({
 }: TextProps) => {
     const { fill, height, width, x, y, value } = layer;
 
+    const contentRef = useRef<HTMLDivElement>(null);
+
     const [contentValue, setContentValue] = useState<string>(value || 'Text');
 
     const history = useHistory();
 
     const updateValue = useMutation(({ storage }, newValue: string) => {
         const liveLayers = storage.get('layers');
-        if (newValue === '') {
-            liveLayers.delete(id);
-        } else {
-            liveLayers.get(id)?.set('value', newValue);
-        }
+
+        liveLayers.get(id)?.set('value', newValue);
     }, []);
 
     const handleContentChange = (e: ContentEditableEvent) => {
@@ -44,22 +43,33 @@ export const Text = ({
     };
 
     const onLayerBlur = useMutation(
-        ({ setMyPresence }) => {
-            history.pause();
+        ({ storage, setMyPresence }) => {
+            // history.redo();
 
-            setMyPresence({ selection: [] }, { addToHistory: false });
+            const liveLayers = storage.get('layers');
+            const liveValue = liveLayers.get(id)?.get('value');
+            if (liveValue === '') {
+                const liveLayerIds = storage.get('layerIds');
+                liveLayers.delete(id);
+                const index = liveLayerIds.indexOf(id);
+                if (index !== -1) {
+                    liveLayerIds.delete(index);
+                }
+            }
+
+            setMyPresence({ selection: [] }, { addToHistory: true });
         },
-        [history]
+        [history, value, contentValue]
     );
 
     useEffect(() => {
         const keyHandler = (e: KeyboardEvent) => {
-            if (e.key === 'Enter' && contentValue !== undefined) {
+            if (e.key === 'Enter') {
                 if (e.shiftKey) {
                     return;
                 }
                 e.preventDefault();
-                updateValue(contentValue);
+                contentRef.current?.blur();
                 onLayerBlur();
             }
         };
@@ -67,7 +77,7 @@ export const Text = ({
         return () => {
             document.removeEventListener('keydown', keyHandler);
         };
-    }, [contentValue, updateValue, onLayerBlur]);
+    }, [onLayerBlur]);
 
     return (
         <foreignObject
@@ -83,8 +93,10 @@ export const Text = ({
             }}
         >
             <ContentEditable
+                innerRef={contentRef}
                 html={contentValue}
                 onChange={handleContentChange}
+                // onBlur={onLayerBlur}
                 style={{
                     fontSize: 32,
                     color: fill ? colorToCss(fill) : '#000',

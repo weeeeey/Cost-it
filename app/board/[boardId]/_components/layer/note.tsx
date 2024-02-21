@@ -3,7 +3,7 @@ import { cn, colorToCss, getContrastingTextColor } from '@/lib/utils';
 import { useHistory, useMutation } from '@/liveblocks.config';
 import { NoteLayer } from '@/types/type-canvas';
 import { Kalam } from 'next/font/google';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ContentEditable, { ContentEditableEvent } from 'react-contenteditable';
 
 const font = Kalam({
@@ -25,17 +25,14 @@ export const Note = ({
 }: NoteProps) => {
     const { fill, height, width, x, y, value } = layer;
 
-    const [contentValue, setContentValue] = useState<string>(value || 'Text');
+    const noteRef = useRef<HTMLDivElement>(null);
 
-    const history = useHistory();
+    const [contentValue, setContentValue] = useState<string>(value || 'Text');
 
     const updateValue = useMutation(({ storage }, newValue: string) => {
         const liveLayers = storage.get('layers');
-        if (newValue === '') {
-            liveLayers.delete(id);
-        } else {
-            liveLayers.get(id)?.set('value', newValue);
-        }
+
+        liveLayers.get(id)?.set('value', newValue);
     }, []);
 
     const handleContentChange = (e: ContentEditableEvent) => {
@@ -43,31 +40,21 @@ export const Note = ({
         updateValue(e.target.value);
     };
 
-    const onLayerBlur = useMutation(
-        ({ setMyPresence }) => {
-            history.pause();
-
-            setMyPresence({ selection: [] }, { addToHistory: false });
-        },
-        [history]
-    );
-
     useEffect(() => {
-        const enterKeyHandler = (e: KeyboardEvent) => {
-            if (e.key === 'Enter' && contentValue !== undefined) {
+        const keyHandler = (e: KeyboardEvent) => {
+            if (e.key === 'Enter') {
                 if (e.shiftKey) {
                     return;
                 }
                 e.preventDefault();
-                updateValue(contentValue);
-                onLayerBlur();
+                noteRef.current?.blur();
             }
         };
-        document.addEventListener('keydown', enterKeyHandler);
+        document.addEventListener('keydown', keyHandler);
         return () => {
-            document.removeEventListener('keydown', enterKeyHandler);
+            document.removeEventListener('keydown', keyHandler);
         };
-    }, [contentValue, updateValue, onLayerBlur]);
+    }, []);
 
     return (
         <>
@@ -85,6 +72,7 @@ export const Note = ({
                 }}
             >
                 <ContentEditable
+                    innerRef={noteRef}
                     html={contentValue}
                     onChange={handleContentChange}
                     style={{
