@@ -224,9 +224,23 @@ export const Canvas = ({ boardId }: CanvasProps) => {
 
             const liveLayerIds = storage.get('layerIds');
             liveLayerIds.push(id);
-            console.log(liveLayerIds);
+
             setMyPresence({ pencilDraft: null });
-            setCanvasState({ mode: CanvasMode.Pencil });
+            const x = pencilDraft[0][0] - camera.x;
+            const y = pencilDraft[0][1] - camera.y;
+
+            if (!self.presence.selection.includes(id)) {
+                setMyPresence({ selection: [id] }, { addToHistory: true });
+            }
+            setCanvasState({
+                mode: CanvasMode.Translating,
+                current: {
+                    x,
+                    y,
+                },
+            });
+
+            setCanvasState({ mode: CanvasMode.None });
         },
         [lastUsedColor]
     );

@@ -10,7 +10,6 @@ interface PathProps {
     fill: string;
     onPointerDown?: (e: React.PointerEvent) => void;
     stroke?: string;
-    layer?: PathLayer;
 }
 
 export const Path = ({
