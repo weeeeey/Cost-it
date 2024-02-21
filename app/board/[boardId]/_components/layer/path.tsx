@@ -1,6 +1,7 @@
 import getStroke from 'perfect-freehand';
 
 import { getSvgPathFromStroke } from '@/lib/utils';
+import { PathLayer } from '@/types/type-canvas';
 
 interface PathProps {
     x: number;
@@ -9,6 +10,7 @@ interface PathProps {
     fill: string;
     onPointerDown?: (e: React.PointerEvent) => void;
     stroke?: string;
+    layer?: PathLayer;
 }
 
 export const Path = ({

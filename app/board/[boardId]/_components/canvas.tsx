@@ -55,6 +55,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
     const layerIds = useStorage((root) => root.layerIds);
 
     const pencilDraft = useSelf((me) => me.presence.pencilDraft);
+
     const [canvasState, setCanvasState] = useState<CanvasState>({
         mode: CanvasMode.None,
     });
@@ -223,7 +224,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
 
             const liveLayerIds = storage.get('layerIds');
             liveLayerIds.push(id);
-
+            console.log(liveLayerIds);
             setMyPresence({ pencilDraft: null });
             setCanvasState({ mode: CanvasMode.Pencil });
         },
