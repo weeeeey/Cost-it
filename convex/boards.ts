@@ -1,7 +1,9 @@
 import { v } from 'convex/values';
-import { query } from './_generated/server';
+import { mutation, query } from './_generated/server';
+import { api } from './_generated/api';
 
 import { getAllOrThrow } from 'convex-helpers/server/relationships';
+import { remove } from './board';
 
 export const get = query({
     args: {
@@ -72,5 +74,27 @@ export const get = query({
         );
 
         return boardsWithFavoriteBoolean;
+    },
+});
+
+export const allDelete = mutation({
+    args: { orgId: v.string() },
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity();
+        if (!identity) {
+            throw new Error('Unauthorized');
+        }
+        const boards = await ctx.db
+            .query('boards')
+            .filter((q) => q.eq(q.field('orgId'), args.orgId))
+            .collect();
+        console.log(boards.length);
+
+        if (!boards) {
+            throw new Error('No boards found');
+        }
+        for (const board of boards) {
+            await remove(ctx, { id: board._id });
+        }
     },
 });

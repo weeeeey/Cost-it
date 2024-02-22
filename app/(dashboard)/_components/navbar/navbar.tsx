@@ -6,10 +6,11 @@ import {
 } from '@clerk/clerk-react';
 import React from 'react';
 import { SearchInput } from './search-input';
-import InviteButton from './InviteButton';
+import NavbarButton from './NavbarButton';
 
 export const Navbar = () => {
-    const organization = useOrganization();
+    const { organization } = useOrganization();
+
     return (
         <div className="flex items-center  gap-x-4 p-5">
             <div className="hidden lg:flex lg:flex-1">
@@ -40,7 +41,7 @@ export const Navbar = () => {
                 />
             </div>
 
-            {organization && <InviteButton />}
+            {organization && <NavbarButton orgId={organization.id} />}
             <UserButton />
         </div>
     );
