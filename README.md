@@ -25,12 +25,12 @@ To get started with this project, follow the steps below:
 
 ## Skills
 
-🖼️ Frontend : Next.js 14
-🖌️ Backend: Convex
-🔑 Auth (organisations and invites) : Convex & Clerk
-🖍️ UI: TailwindCSS & ShadcnUI styling
-🔎 State: Zustand
-🪄 Toolbar with Text, Shapes, Sticky Notes & Pencil: liveblocks
-🎉 Realtime collaboration : liveblocks
+-   🖼️ Frontend : Next.js 14
+-   🖌️ Backend: Convex
+-   🔑 Auth (organisations and invites) : Convex & Clerk
+-   🖍️ UI: TailwindCSS & ShadcnUI styling
+-   🔎 State: Zustand
+-   🪄 Toolbar with Text, Shapes, Sticky Notes & Pencil: liveblocks
+-   🎉 Realtime collaboration : liveblocks
 
 [![Video Label](http://img.youtube.com/vi/AYzsVDjYuek/0.jpg)](https://www.youtube.com/watch?v=AYzsVDjYuek)
