@@ -7,6 +7,7 @@ import { ConfirmModal } from '@/components/confirm-modal';
 import { api } from '@/convex/_generated/api';
 
 import useApiMutation from '@/hooks/use-api-mutation';
+import { Hint } from '@/components/hint';
 
 interface InviteButtonProps {
     orgId: string;
@@ -28,22 +29,20 @@ const NavbarButton = ({ orgId }: InviteButtonProps) => {
                 onConfirm={handleDeleteAll}
                 disabled={pending}
             >
-                <Button variant="outline">
-                    <Trash2 className="h-5 w-5 " />
-                    <div className="hidden md:ml-2 md:block text-sm">
-                        Delete all boards
-                    </div>
-                </Button>
+                <Hint label="Delete boards" side="bottom" sideOffset={10}>
+                    <Button variant="outline">
+                        <Trash2 className="h-5 w-5 " />
+                    </Button>
+                </Hint>
             </ConfirmModal>
             {/* invite */}
             <Dialog>
-                <DialogTrigger asChild>
-                    <Button variant="outline">
-                        <UserPlus className="h-5 w-5 " />
-                        <div className="hidden md:ml-2 md:block text-sm">
-                            Invite User
-                        </div>
-                    </Button>
+                <DialogTrigger>
+                    <Hint label="Invite member" side="bottom" sideOffset={10}>
+                        <Button variant="outline">
+                            <UserPlus className="h-5 w-5 " />
+                        </Button>
+                    </Hint>
                 </DialogTrigger>
                 <DialogContent className="p-0 bg-transparent border-none flex justify-center items-center">
                     <OrganizationProfile />

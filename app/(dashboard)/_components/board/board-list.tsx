@@ -8,7 +8,6 @@ import { EmptyBoard } from '../empty/empty-board';
 import { useQuery } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import BoardCard from './board-card';
-import { Id } from '@/convex/_generated/dataModel';
 import { BoardNewButton } from './board-new-button';
 import { BoardSkeleton } from './board-skeleton';
 
