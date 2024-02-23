@@ -4,12 +4,11 @@ import {
     UserButton,
     useOrganization,
 } from '@clerk/clerk-react';
-import React from 'react';
 import { SearchInput } from './search-input';
-import NavbarButton from './NavbarButton';
+import NavbarButton from './navbar-button';
 
 export const Navbar = () => {
-    const { organization } = useOrganization();
+    const { organization, membership } = useOrganization({ memberships: true });
 
     return (
         <div className="flex items-center  gap-x-4 p-5">
@@ -41,7 +40,12 @@ export const Navbar = () => {
                 />
             </div>
 
-            {organization && <NavbarButton orgId={organization.id} />}
+            {organization && (
+                <NavbarButton
+                    orgId={organization.id}
+                    isAdmin={membership?.role === 'org:admin'}
+                />
+            )}
             <UserButton />
         </div>
     );

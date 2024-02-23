@@ -21,10 +21,10 @@ export const NewModal = () => {
     const { mutate, pending } = useApiMutation(api.board.create);
 
     const onClick = () => {
-        if (title.length === 0) return toast.error('Title is required');
+        // if (title.length === 0) return toast.error('Title is required');
         mutate({
             orgId,
-            title,
+            title: title || 'Untitled',
         })
             .then(() => {
                 toast.success('Board created');

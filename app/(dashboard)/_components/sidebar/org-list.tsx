@@ -9,6 +9,7 @@ const OrgList = () => {
             infinite: true,
         },
     });
+
     if (!userMemberships.data?.length) return null;
     return (
         <ul className="space-y-4">

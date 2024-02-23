@@ -29,11 +29,11 @@ const NavbarButton = ({ orgId }: InviteButtonProps) => {
                 onConfirm={handleDeleteAll}
                 disabled={pending}
             >
-                <Hint label="Delete boards" side="bottom" sideOffset={10}>
+                {/* <Hint label="Delete boards" side="bottom" sideOffset={10}>
                     <Button variant="outline">
                         <Trash2 className="h-5 w-5 " />
                     </Button>
-                </Hint>
+                </Hint> */}
             </ConfirmModal>
             {/* invite */}
             <Dialog>
